@@ -1,31 +1,20 @@
-import { useEffect } from 'react'
 import './App.css'
-import axiosClient from './utils/axiosclient';
 import { Route,Routes } from 'react-router-dom';
-import Body from './pages/Body';
+import ProductListing from './pages/ProductListing';
+import Header from './components/Header';
+import NotFound from './pages/NotFound';
 
 
 function App() {
 
-//   const fetchProduct=async()=>{
-//       try {
-//         const response = await axiosClient.get('/products/');
-//         console.log(response.data);
-        
-//       } catch (error) {
-//         console.log(error);
-//       }
-//   }
-
-//   useEffect(()=>{
-//       fetchProduct();
-//   },[])
-
   return (
   <>
+  <Header />
     <Routes>
-      <Route path="/" element={<Body />}/>
+      <Route path="/" element={<ProductListing />}/>
+      <Route path="*" element={<NotFound />} />
     </Routes>
+  
   </>
   )
 }

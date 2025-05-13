@@ -56,7 +56,9 @@ export default tseslint.config({
 //shared card search button
 //component header footer 
 //pages 
+//pending category api 
 
 1.  npm i 
 2.  add .env config 
+          VITE_API_BASE_URL=http://localhost:5000/api/v1
 3.  docker compose up --build
