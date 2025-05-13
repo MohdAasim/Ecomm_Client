@@ -1,0 +1,19 @@
+.container{
+  display: flex;
+  flex-wrap: wrap;
+}
+.card{
+  padding: 5px;
+  width: 220px;
+  height: 400px;
+  border: 1px solid;
+  margin: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  background-color:darkgoldenrod;
+  border-radius: 20px;
+}
+.img_card{
+  width: 220px;
+  border-radius: 20px;
+}
