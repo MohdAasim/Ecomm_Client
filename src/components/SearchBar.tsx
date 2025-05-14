@@ -1,4 +1,3 @@
-// src/components/SearchBar.tsx
 import React from "react";
 
 interface SearchBarProps {
@@ -25,4 +24,4 @@ const SearchBar: React.FC<SearchBarProps> = ({
   );
 };
 
-export default SearchBar;
+export default React.memo(SearchBar);

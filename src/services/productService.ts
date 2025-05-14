@@ -20,3 +20,8 @@ export const fetchProducts = async (params: FetchProductParams = {}): Promise<Pr
   const response = await axiosClient.get<ProductResponse>('/products', { params });
   return response.data;
 };
+
+export const getProductById = async (id: string): Promise<Product> => {
+    const response = await axiosClient.get<{ product: Product }>(`/products/${id}`);
+    return response.data.product;
+  };

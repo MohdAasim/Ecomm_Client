@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import ItemCard from "../components/ItemCard";
 import { useProducts } from "../hooks/useProducts";
 import ShimmerUi from "../components/ShimmerUi";
@@ -7,6 +7,7 @@ import ErrorMessage from "../components/ErrorMessage";
 import SearchBar from "../components/SearchBar";
 import { useDebouncedEffect } from "../hooks/useDebouncedEffect";
 import Filter from "../components/Filter";
+import { Link } from "react-router-dom";
 
 const ProductListing: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -25,10 +26,10 @@ const ProductListing: React.FC = () => {
     maxPrice,
   });
 
-  const handleSearch = () => {
+  const handleSearch = useCallback(() => {
     setPage(1);
     setQuery(searchTerm);
-  };
+  },[setPage,setQuery,searchTerm])
 
   useDebouncedEffect(
     () => {
@@ -69,7 +70,9 @@ const ProductListing: React.FC = () => {
         <>
           <div className="products-grid">
             {items.map((item) => (
-              <ItemCard key={item.id} data={item} />
+              <Link to={"/desc/"+item.id} key={item.id} >
+              <ItemCard data={item} />
+              </Link>
             ))}
           </div>
           {totalPages > 1 && (

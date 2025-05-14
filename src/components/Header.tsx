@@ -1,14 +1,26 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isAuthenticated, logout } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleToggle = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const isLoggedIn = false; // Replace with actual login state
+  const handleSignOut = () => {
+    setIsMenuOpen(false);
+    logout();
+  };
+
+  const handleSignInRedirect = () => {
+    setIsMenuOpen(false);
+    navigate('/signin', { state: { from: location }, replace: true });
+  };
 
   return (
     <header className="header">
@@ -36,22 +48,14 @@ const Header: React.FC = () => {
           >
             Cart
           </Link>
-          {isLoggedIn ? (
-            <Link
-              to="/signout"
-              className="nav-link"
-              onClick={() => setIsMenuOpen(false)}
-            >
+          {isAuthenticated ? (
+            <a className="nav-link" onClick={handleSignOut}>
               Sign Out
-            </Link>
+            </a>
           ) : (
-            <Link
-              to="/signin"
-              className="nav-link"
-              onClick={() => setIsMenuOpen(false)}
-            >
+            <a className="nav-link" onClick={handleSignInRedirect}>
               Sign In
-            </Link>
+            </a>
           )}
         </nav>
       </div>
@@ -60,3 +64,4 @@ const Header: React.FC = () => {
 };
 
 export default Header;
+
