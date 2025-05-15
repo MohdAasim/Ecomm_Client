@@ -3,16 +3,22 @@ import { useParams } from 'react-router-dom';
 import { useProductById } from '../hooks/useProductById';
 import ErrorMessage from '../components/ErrorMessage';
 import ShimmerUi from '../components/ShimmerUi';
+import { useCart } from '../context/CartContext'; 
 
 const ProductDesc: React.FC = () => {
   const { id } = useParams();
   const { product, loading, error } = useProductById(id);
   const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useCart();
+
 
   const increment = () => setQuantity((q) => q + 1);
   const decrement = () => setQuantity((q) => (q > 1 ? q - 1 : 1));
   const handleAddToCart = () => {
-    console.log({ ...product, quantity });
+    // console.log({ ...product, quantity });
+    if (product && product.id != null) {
+        addToCart({ productId: product.id, quantity, product });
+      }
   };
 
   return (

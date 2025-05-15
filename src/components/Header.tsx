@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useCart } from '../context/CartContext'; 
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isAuthenticated, logout } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+  const { cartItems } = useCart();
 
   const handleToggle = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -46,7 +48,7 @@ const Header: React.FC = () => {
             className="nav-link"
             onClick={() => setIsMenuOpen(false)}
           >
-            Cart
+            Cart ({cartItems?.length ?? 0})
           </Link>
           {isAuthenticated ? (
             <a className="nav-link" onClick={handleSignOut}>

@@ -20,13 +20,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = (newToken: string) => {
     Cookies.set('token', newToken, { expires: 2 });
     setToken(newToken);
-    navigate(from, { replace: true }); 
+    navigate(from, { replace: true });
   };
 
   const logout = () => {
     Cookies.remove('token');
     setToken(null);
-    navigate('/'); 
+    navigate('/');
   };
 
   return (
