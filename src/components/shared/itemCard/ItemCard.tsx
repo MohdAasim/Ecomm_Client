@@ -1,5 +1,6 @@
-import React from "react";
-import type { Product } from "../types/Product";
+import React from 'react';
+import type { Product } from '../../../types/Product';
+import './Itemcard.css';
 
 interface ItemCardProps {
   data: Product;

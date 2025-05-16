@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import axiosClient from "../utils/axiosclient";
-import { useAuth } from "../context/AuthContext";
-import AddressForm from "../components/AddressForm";
-import { useCart } from "../context/CartContext";
+import { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import axiosClient from '../../utils/axiosclient';
+import { useAuth } from '../../context/AuthContext';
+import AddressForm from '../../components/shared/addressForm/AddressForm';
+import { useCart } from '../../context/CartContext';
+import './CheckoutPage.css';
 
 type Address = {
   id: number;
@@ -18,13 +19,19 @@ const CheckoutPage = () => {
   const { state } = useLocation();
   const { totalPrice } = state;
   const { userId, token } = useAuth();
-  const {clearCart} =useCart();
+  const { clearCart } = useCart();
   const navigate = useNavigate();
 
   const [addresses, setAddresses] = useState<Address[]>([]);
-  const [selectedAddressId, setSelectedAddressId] = useState<number | null>(null);
+  const [selectedAddressId, setSelectedAddressId] = useState<number | null>(
+    null,
+  );
   const [newAddress, setNewAddress] = useState<Omit<Address, 'id'>>({
-    street: "", city: "", state: "", postalCode: "", country: ""
+    street: '',
+    city: '',
+    state: '',
+    postalCode: '',
+    country: '',
   });
   const [saveAddress, setSaveAddress] = useState(false);
 
@@ -36,7 +43,7 @@ const CheckoutPage = () => {
         });
         setAddresses(res.data || []);
       } catch (err) {
-        console.error("Error fetching addresses", err);
+        console.error('Error fetching addresses', err);
       }
     };
     fetchAddresses();
@@ -44,9 +51,11 @@ const CheckoutPage = () => {
 
   const handleBookOrder = async () => {
     if (!selectedAddressId) {
-      const isNewAddressFilled = Object.values(newAddress).every((val) => val.trim() !== "");
+      const isNewAddressFilled = Object.values(newAddress).every(
+        (val) => val.trim() !== '',
+      );
       if (!isNewAddressFilled) {
-        alert("Please select a saved address or fill in the new address form.");
+        alert('Please select a saved address or fill in the new address form.');
         return;
       }
     }
@@ -56,7 +65,7 @@ const CheckoutPage = () => {
       : newAddress;
 
     if (!address) {
-      alert("Please provide an address");
+      alert('Please provide an address');
       return;
     }
 
@@ -67,22 +76,22 @@ const CheckoutPage = () => {
           userId,
         };
 
-        await axiosClient.post("/addresses", newAddressData, {
+        await axiosClient.post('/addresses', newAddressData, {
           headers: { Authorization: `Bearer ${token}` },
         });
       } catch (err) {
-        console.error("Error saving address", err);
-        alert("Failed to save address");
+        console.error('Error saving address', err);
+        alert('Failed to save address');
         return;
       }
     }
 
     try {
       await clearCart();
-      navigate("/order-success");
+      navigate('/order-success');
     } catch (err) {
-      console.error("Error clearing cart", err);
-      alert("Order placed but failed to clear cart.");
+      console.error('Error clearing cart', err);
+      alert('Order placed but failed to clear cart.');
     }
   };
 
@@ -103,7 +112,8 @@ const CheckoutPage = () => {
                   onChange={() => setSelectedAddressId(addr.id)}
                   className="radio-input"
                 />
-                {addr.street}, {addr.city}, {addr.state}, {addr.postalCode}, {addr.country}
+                {addr.street}, {addr.city}, {addr.state}, {addr.postalCode},{' '}
+                {addr.country}
               </label>
             ))}
           </div>
@@ -115,7 +125,10 @@ const CheckoutPage = () => {
         <AddressForm
           address={newAddress}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setNewAddress((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+            setNewAddress((prev) => ({
+              ...prev,
+              [e.target.name]: e.target.value,
+            }))
           }
         />
         <label className="checkbox-label">

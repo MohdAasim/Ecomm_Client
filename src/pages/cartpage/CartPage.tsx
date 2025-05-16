@@ -1,6 +1,7 @@
-import { useCart } from "../context/CartContext";
-import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useCart } from '../../context/CartContext';
+import { useAuth } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import './CartPage.css';
 
 const CartPage = () => {
   const { cartItems, updateQuantity, removeFromCart, clearCart } = useCart();
@@ -8,19 +9,18 @@ const CartPage = () => {
   const navigate = useNavigate();
 
   const totalPrice = cartItems.reduce(
-    (sum, item) => sum + (Number(item.Product?.price || 0) * item.quantity),
-    0
+    (sum, item) => sum + Number(item.Product?.price || 0) * item.quantity,
+    0,
   );
-  
+
   const handleCheckout = () => {
     if (!isAuthenticated) {
-      alert("Please sign in to proceed to checkout.");
-      navigate("/signin");
+      alert('Please sign in to proceed to checkout.');
+      navigate('/signin');
       return;
     }
-    navigate("/checkout", { state: { totalPrice } });
+    navigate('/checkout', { state: { totalPrice } });
   };
-  
 
   // Defensive fallback
   const safeCartItems = Array.isArray(cartItems) ? cartItems : [];
@@ -35,7 +35,7 @@ const CartPage = () => {
         <>
           <ul className="cart-list">
             {safeCartItems.map((item) => (
-              <li className="cart-item" key={item.id}>
+              <li className="cart-item" key={item.productId}>
                 <span className="cart-item-name">
                   {item.Product?.name || `Product ${item.productId}`} - ₹
                   {(Number(item.Product?.price) * item.quantity).toFixed(2)}
@@ -46,7 +46,7 @@ const CartPage = () => {
                     onClick={() =>
                       updateQuantity(
                         item.productId,
-                        Math.max(item.quantity - 1, 1)
+                        Math.max(item.quantity - 1, 1),
                       )
                     }
                   >

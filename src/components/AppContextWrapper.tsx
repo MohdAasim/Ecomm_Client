@@ -2,7 +2,9 @@ import { useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 
-const AppContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const AppContextWrapper: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const { isAuthenticated } = useAuth();
   const { syncCartToBackend } = useCart();
 
@@ -16,7 +18,7 @@ const AppContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }
     if (!isAuthenticated) {
       hasSynced.current = false;
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, syncCartToBackend]);
 
   return <>{children}</>;
 };

@@ -14,7 +14,7 @@ export const useProductById = (id: string | undefined) => {
       try {
         const data = await getProductById(id);
         setProduct(data);
-      } catch (err) {
+      } catch {
         setError('Failed to fetch product');
       } finally {
         setLoading(false);

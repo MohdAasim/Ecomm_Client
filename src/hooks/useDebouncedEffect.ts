@@ -1,9 +1,17 @@
-// useDebouncedEffect.ts
 import { useEffect } from 'react';
+import type { DependencyList } from 'react';
 
-export function useDebouncedEffect(effect: () => void, deps: any[], delay: number) {
+export function useDebouncedEffect(
+  effect: () => void,
+  deps: DependencyList,
+  delay: number,
+): void {
   useEffect(() => {
-    const handler = setTimeout(() => effect(), delay);
+    const handler = setTimeout(() => {
+      effect();
+    }, delay);
+
     return () => clearTimeout(handler);
-  }, [...deps, delay]);
+    // eslint-disable-next-line
+  }, [effect, delay, ...deps]);
 }

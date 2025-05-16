@@ -1,45 +1,28 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from 'react';
 import axiosClient from '../utils/axiosclient';
 import { useAuth } from './AuthContext';
 
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  price: string;
-  image_url: string;
-  category: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-interface CartItem {
-  id?: number;
-  quantity: number;
-  productId: number;
-  Product: Product;
-}
-
-interface CartContextType {
-  cartItems: CartItem[];
-  addToCart: (item: CartItem | any) => void;
-  removeFromCart: (productId: number) => void;
-  updateQuantity: (productId: number, quantity: number) => void;
-  clearCart: () => void;
-  syncCartToBackend: () => void;
-}
+import type {
+  CartItem,
+  AddToCartInput,
+  CartContextType,
+} from '../types/Carttypes';
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const { isAuthenticated, token } = useAuth();
 
-  useEffect(() => {
-    if (isAuthenticated) fetchCartFromBackend();
-  }, [isAuthenticated]);
-
-  const fetchCartFromBackend = async () => {
+  const fetchCartFromBackend = useCallback(async () => {
     try {
       const res = await axiosClient.get<CartItem[]>('/cart', {
         headers: { Authorization: `Bearer ${token}` },
@@ -48,49 +31,54 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } catch (err) {
       console.error('Error fetching cart', err);
     }
-  };
+  }, [token]);
 
-  const syncCartToBackend = async () => {
+  useEffect(() => {
+    if (isAuthenticated) fetchCartFromBackend();
+  }, [isAuthenticated, fetchCartFromBackend]);
+
+  const syncCartToBackend = useCallback(async () => {
     if (!isAuthenticated || cartItems.length === 0) return;
 
     try {
-      // Get current backend items
       const res = await axiosClient.get<CartItem[]>('/cart', {
         headers: { Authorization: `Bearer ${token}` },
       });
       const backendItems = res.data ?? [];
+      const backendProductIds = new Set(
+        backendItems.map((item) => item.productId),
+      );
 
-      const backendProductIds = new Set(backendItems.map((item) => item.productId));
-
-      // Only send guest cart items that are not in backend
       const itemsToAdd = cartItems.filter(
-        (item) => !backendProductIds.has(item.productId)
+        (item) => !backendProductIds.has(item.productId),
       );
 
       if (itemsToAdd.length > 0) {
         await axiosClient.post(
           '/cart',
           {
-            items: itemsToAdd.map(({ productId, quantity }) => ({ productId, quantity })),
+            items: itemsToAdd.map(({ productId, quantity }) => ({
+              productId,
+              quantity,
+            })),
           },
           {
             headers: { Authorization: `Bearer ${token}` },
-          }
+          },
         );
       }
 
-      // Fetch latest full cart from backend
       fetchCartFromBackend();
     } catch (err) {
       console.error('Error syncing cart to backend:', err);
     }
-  };
+  }, [isAuthenticated, cartItems, token, fetchCartFromBackend]);
 
-  const addToCart = (item: CartItem | any) => {
+  const addToCart = (item: AddToCartInput) => {
     const normalizedItem: CartItem = {
       productId: item.productId,
       quantity: item.quantity,
-      Product: item.Product || item.product, // Normalize guest product
+      Product: item.Product || item.product!,
     };
 
     setCartItems((prev) => {
@@ -99,7 +87,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return prev.map((i) =>
           i.productId === normalizedItem.productId
             ? { ...i, quantity: i.quantity + normalizedItem.quantity }
-            : i
+            : i,
         );
       } else {
         return [...prev, normalizedItem];
@@ -109,7 +97,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const updateQuantity = async (productId: number, quantity: number) => {
     setCartItems((prev) =>
-      prev.map((i) => (i.productId === productId ? { ...i, quantity } : i))
+      prev.map((i) => (i.productId === productId ? { ...i, quantity } : i)),
     );
 
     if (isAuthenticated) {
@@ -118,7 +106,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         { quantity },
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
     }
   };
@@ -157,6 +145,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 };
 
+/* eslint-disable */
 export const useCart = () => {
   const ctx = useContext(CartContext);
   if (!ctx) throw new Error('useCart must be used within CartProvider');

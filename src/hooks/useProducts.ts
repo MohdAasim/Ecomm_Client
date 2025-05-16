@@ -21,7 +21,10 @@ export const useProducts = (filters: UseProductParams = {}) => {
     const getProducts = async () => {
       setLoading(true);
       try {
-        const data = await fetchProducts({ ...filters, page: filters.page || 1 });
+        const data = await fetchProducts({
+          ...filters,
+          page: filters.page || 1,
+        });
         setItems(data.products);
         setCurrentPage(data.currentPage);
         setTotalPages(data.totalPages);
@@ -33,8 +36,7 @@ export const useProducts = (filters: UseProductParams = {}) => {
     };
 
     getProducts();
-  }, [filters.page, filters.search, filters.category, filters.minPrice, filters.maxPrice]);
+  }, [filters]);
 
   return { items, currentPage, totalPages, loading, error };
 };
-

@@ -5,7 +5,7 @@ const axiosClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true, 
+  withCredentials: true,
 });
 
 axiosClient.interceptors.response.use(
@@ -13,7 +13,7 @@ axiosClient.interceptors.response.use(
   (error) => {
     console.error('API error:', error);
     return Promise.reject(error);
-  }
+  },
 );
 
 export default axiosClient;

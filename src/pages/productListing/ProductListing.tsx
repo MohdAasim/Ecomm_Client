@@ -1,44 +1,50 @@
-import React, { useCallback, useState } from "react";
-import ItemCard from "../components/ItemCard";
-import { useProducts } from "../hooks/useProducts";
-import ShimmerUi from "../components/ShimmerUi";
-import Pagination from "../components/Pagination";
-import ErrorMessage from "../components/ErrorMessage";
-import SearchBar from "../components/SearchBar";
-import { useDebouncedEffect } from "../hooks/useDebouncedEffect";
-import Filter from "../components/Filter";
-import { Link } from "react-router-dom";
+import React, { useCallback, useMemo, useState } from 'react';
+import ItemCard from '../../components/shared/itemCard/ItemCard';
+import { useProducts } from '../../hooks/useProducts';
+import ShimmerUi from '../../components/ShimmerUi';
+import Pagination from '../../components/shared/pagination/Pagination';
+import ErrorMessage from '../../components/shared/errorMessage/ErrorMessage';
+import SearchBar from '../../components/shared/searchBar/SearchBar';
+import { useDebouncedEffect } from '../../hooks/useDebouncedEffect';
+import Filter from '../../components/shared/filters/Filter';
+import { Link } from 'react-router-dom';
+import './ProductListing.css';
 
 const ProductListing: React.FC = () => {
   const [page, setPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [query, setQuery] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
+  const [query, setQuery] = useState('');
   const [category, setCategory] = useState('');
   const [minPrice, setMinPrice] = useState<number | undefined>(undefined);
   const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined);
 
+  const filters = useMemo(
+    () => ({
+      page,
+      search: query,
+      category,
+      minPrice,
+      maxPrice,
+    }),
+    [page, query, category, minPrice, maxPrice],
+  );
 
-  const { items, currentPage, totalPages, loading, error } = useProducts({
-    page,
-    search: query,
-    category,
-    minPrice,
-    maxPrice,
-  });
+  const { items, currentPage, totalPages, loading, error } =
+    useProducts(filters);
 
   const handleSearch = useCallback(() => {
     setPage(1);
     setQuery(searchTerm);
-  },[setPage,setQuery,searchTerm])
+  }, [setPage, setQuery, searchTerm]);
 
   useDebouncedEffect(
     () => {
-      if (searchTerm.trim() === "") {
+      if (searchTerm.trim() === '') {
         handleSearch();
       }
     },
     [searchTerm],
-    300
+    300,
   );
 
   return (
@@ -70,8 +76,8 @@ const ProductListing: React.FC = () => {
         <>
           <div className="products-grid">
             {items.map((item) => (
-              <Link to={"/desc/"+item.id} key={item.id} >
-              <ItemCard data={item} />
+              <Link to={'/desc/' + item.id} key={item.id}>
+                <ItemCard data={item} />
               </Link>
             ))}
           </div>
