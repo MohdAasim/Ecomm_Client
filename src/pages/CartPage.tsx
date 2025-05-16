@@ -7,14 +7,20 @@ const CartPage = () => {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
+  const totalPrice = cartItems.reduce(
+    (sum, item) => sum + (Number(item.Product?.price || 0) * item.quantity),
+    0
+  );
+  
   const handleCheckout = () => {
     if (!isAuthenticated) {
       alert("Please sign in to proceed to checkout.");
       navigate("/signin");
       return;
     }
-    alert("Proceeding to checkout...");
+    navigate("/checkout", { state: { totalPrice } });
   };
+  
 
   // Defensive fallback
   const safeCartItems = Array.isArray(cartItems) ? cartItems : [];

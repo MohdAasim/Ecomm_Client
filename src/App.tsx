@@ -10,6 +10,8 @@ import SignIn from "./pages/SignIn";
 import CartPage from "./pages/CartPage";
 import { CartProvider } from "./context/CartContext";
 import AppContextWrapper from "./components/AppContextWrapper";
+import CheckoutPage from "./pages/CheckoutPage";
+import OrderSuccess from "./pages/orderSuccess/OrderSuccess";
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
               <Route path="/about" element={<Aboutus />} />
               <Route path="/signin" element={<SignIn />} />
               <Route path="/cart" element={<CartPage />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/order-success" element={<OrderSuccess />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </AppContextWrapper>

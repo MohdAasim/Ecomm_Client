@@ -44,7 +44,7 @@ export const useOtp = () => {
     setError('');
     try {
       const response = await verifyOtp(email, otp);
-      login(response.data.token);
+      login(response.data.token,response.data.userId);
     } catch (err) {
       setError('Invalid OTP');
     }
