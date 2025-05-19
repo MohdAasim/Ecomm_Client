@@ -9,7 +9,7 @@ import { AuthProvider } from './context/AuthContext';
 import SignIn from './pages/signIn/SignIn';
 import CartPage from './pages/cartpage/CartPage';
 import { CartProvider } from './context/CartContext';
-import AppContextWrapper from './components/AppContextWrapper';
+import AppContextWrapper from './components/shared/appContextWrapper/AppContextWrapper';
 import CheckoutPage from './pages/checkout/CheckoutPage';
 import OrderSuccess from './pages/orderSuccess/OrderSuccess';
 import { ToastContainer } from 'react-toastify';
