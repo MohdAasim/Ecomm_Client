@@ -28,16 +28,17 @@ export default tseslint.config({
       tsconfigRootDir: import.meta.dirname,
     },
   },
-})
+});
 ```
-//har componnet 
+
+//har componnet
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
 ```js
 // eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+import reactX from 'eslint-plugin-react-x';
+import reactDom from 'eslint-plugin-react-dom';
 
 export default tseslint.config({
   plugins: {
@@ -51,23 +52,17 @@ export default tseslint.config({
     ...reactX.configs['recommended-typescript'].rules,
     ...reactDom.configs.recommended.rules,
   },
-})
+});
 ```
-css ka sbka alag alag 
-prettier
-Eslint 
-husky - precommits
-alert message - toster 
-.env.dev .env.prod
-Error Boundary
 
+css ka sbka alag alag - Mostly Done
 
 //shared card search button
-//component header footer 
-//pages 
-//pending category api 
+//component header footer
+//pages
+//pending category api
 
-1.  npm i 
-2.  add .env config 
-          VITE_API_BASE_URL=http://localhost:5000/api/v1
+1.  npm i
+2.  add .env config
+    VITE_API_BASE_URL=http://localhost:5000/api/v1
 3.  docker compose up --build

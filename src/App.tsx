@@ -1,17 +1,19 @@
-import "./App.css";
-import { Route, Routes } from "react-router-dom";
-import ProductListing from "./pages/ProductListing";
-import Header from "./components/Header";
-import NotFound from "./pages/NotFound";
-import ProductDesc from "./pages/ProductDesc";
-import Aboutus from "./pages/Aboutus";
-import { AuthProvider } from "./context/AuthContext";
-import SignIn from "./pages/SignIn";
-import CartPage from "./pages/CartPage";
-import { CartProvider } from "./context/CartContext";
-import AppContextWrapper from "./components/AppContextWrapper";
-import CheckoutPage from "./pages/CheckoutPage";
-import OrderSuccess from "./pages/orderSuccess/OrderSuccess";
+import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import ProductListing from './pages/productListing/ProductListing';
+import Header from './components/header/Header';
+import NotFound from './pages/notFound/NotFound';
+import ProductDesc from './pages/productDesc/ProductDesc';
+import Aboutus from './pages/aboutus/Aboutus';
+import { AuthProvider } from './context/AuthContext';
+import SignIn from './pages/signIn/SignIn';
+import CartPage from './pages/cartpage/CartPage';
+import { CartProvider } from './context/CartContext';
+import AppContextWrapper from './components/AppContextWrapper';
+import CheckoutPage from './pages/checkout/CheckoutPage';
+import OrderSuccess from './pages/orderSuccess/OrderSuccess';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -33,6 +35,7 @@ function App() {
           </AppContextWrapper>
         </CartProvider>
       </AuthProvider>
+      <ToastContainer position="top-right" autoClose={3000} />
     </>
   );
 }

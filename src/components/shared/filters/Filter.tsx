@@ -1,5 +1,6 @@
 import React from 'react';
-import { CATEGORY_FILTER } from '../utils/constants';
+import { CATEGORY_FILTER } from '../../../utils/constants';
+import './Filter.css';
 
 interface FilterProps {
   category: string;
@@ -20,8 +21,15 @@ const Filter: React.FC<FilterProps> = ({
 }) => {
   return (
     <div className="filter-bar">
-      <select value={category} onChange={(e) => onCategoryChange(e.target.value)}>
-        {CATEGORY_FILTER.map((cat)=><option key={cat.value} value={cat.value}>{cat.label}</option>)}
+      <select
+        value={category}
+        onChange={(e) => onCategoryChange(e.target.value)}
+      >
+        {CATEGORY_FILTER.map((cat) => (
+          <option key={cat.value} value={cat.value}>
+            {cat.label}
+          </option>
+        ))}
       </select>
 
       <input

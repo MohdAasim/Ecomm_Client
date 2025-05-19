@@ -1,15 +1,18 @@
-import { useOtp } from '../hooks/useOtp';
+import { useOtp } from '../../hooks/useOtp';
+import './SignIn.css';
 
 const SignIn = () => {
   const {
-    email, setEmail,
-    otp, setOtp,
+    email,
+    setEmail,
+    otp,
+    setOtp,
     step,
     timer,
     error,
     handleSendOtp,
     handleVerifyOtp,
-    resendOtp
+    resendOtp,
   } = useOtp();
 
   return (
@@ -40,7 +43,9 @@ const SignIn = () => {
 
         {step === 'otp' && (
           <>
-            <p>OTP sent to <strong>{email}</strong></p>
+            <p>
+              OTP sent to <strong>{email}</strong>
+            </p>
             <input
               type="text"
               placeholder="Enter OTP"
@@ -49,9 +54,11 @@ const SignIn = () => {
             />
             <button onClick={handleVerifyOtp}>Verify OTP</button>
             <p>
-              {timer > 0
-                ? `Resend OTP in ${timer}s`
-                : <button onClick={resendOtp}>Resend OTP</button>}
+              {timer > 0 ? (
+                `Resend OTP in ${timer}s`
+              ) : (
+                <button onClick={resendOtp}>Resend OTP</button>
+              )}
             </p>
           </>
         )}

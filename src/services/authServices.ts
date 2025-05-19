@@ -5,5 +5,8 @@ export const sendOtp = (email: string) => {
 };
 
 export const verifyOtp = (email: string, otp: string) => {
-  return axiosClient.post<{ token: string,userId:number }>('/auth/verifyOtp', { email, otp });
+  return axiosClient.post<{ token: string; userId: number }>(
+    '/auth/verifyOtp',
+    { email, otp },
+  );
 };

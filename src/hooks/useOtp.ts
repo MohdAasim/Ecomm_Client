@@ -34,7 +34,7 @@ export const useOtp = () => {
 
     try {
       await sendOtp(email);
-    } catch (err) {
+    } catch {
       setError('Failed to send OTP. Please try again.');
       setStep('email'); // Revert back if sending OTP fails
     }
@@ -44,8 +44,8 @@ export const useOtp = () => {
     setError('');
     try {
       const response = await verifyOtp(email, otp);
-      login(response.data.token,response.data.userId);
-    } catch (err) {
+      login(response.data.token, response.data.userId);
+    } catch {
       setError('Invalid OTP');
     }
   };
@@ -57,8 +57,10 @@ export const useOtp = () => {
   };
 
   return {
-    email, setEmail,
-    otp, setOtp,
+    email,
+    setEmail,
+    otp,
+    setOtp,
     step,
     timer,
     error,

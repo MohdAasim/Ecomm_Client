@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { useCart } from '../context/CartContext'; 
+import React, { useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
+import { useCart } from '../../context/CartContext';
+import './Header.css';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -35,7 +36,7 @@ const Header: React.FC = () => {
           ☰
         </button>
 
-        <nav className={`nav-links ${isMenuOpen ? "open" : ""}`}>
+        <nav className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
           <Link
             to="/about"
             className="nav-link"
@@ -66,4 +67,3 @@ const Header: React.FC = () => {
 };
 
 export default Header;
-

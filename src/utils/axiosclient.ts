@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 const axiosClient = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: import.meta.env.VITE_API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true, 
+  withCredentials: true,
 });
 
 axiosClient.interceptors.response.use(
@@ -13,7 +13,7 @@ axiosClient.interceptors.response.use(
   (error) => {
     console.error('API error:', error);
     return Promise.reject(error);
-  }
+  },
 );
 
 export default axiosClient;
