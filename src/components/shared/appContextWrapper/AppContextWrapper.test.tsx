@@ -16,12 +16,14 @@ describe('AppContextWrapper', () => {
 
   const renderWithContext = (isAuthenticated: boolean) => {
     (useAuth as jest.Mock).mockReturnValue({ isAuthenticated });
-    (useCart as jest.Mock).mockReturnValue({ syncCartToBackend: mockSyncCartToBackend });
+    (useCart as jest.Mock).mockReturnValue({
+      syncCartToBackend: mockSyncCartToBackend,
+    });
 
     render(
       <AppContextWrapper>
         <div>Child Component</div>
-      </AppContextWrapper>
+      </AppContextWrapper>,
     );
   };
 
@@ -43,12 +45,14 @@ describe('AppContextWrapper', () => {
     const isAuthenticated = true;
 
     (useAuth as jest.Mock).mockImplementation(() => ({ isAuthenticated }));
-    (useCart as jest.Mock).mockReturnValue({ syncCartToBackend: mockSyncCartToBackend });
+    (useCart as jest.Mock).mockReturnValue({
+      syncCartToBackend: mockSyncCartToBackend,
+    });
 
     const { rerender } = render(
       <AppContextWrapper>
         <div>Child</div>
-      </AppContextWrapper>
+      </AppContextWrapper>,
     );
 
     expect(mockSyncCartToBackend).toHaveBeenCalledTimes(1);
@@ -56,7 +60,7 @@ describe('AppContextWrapper', () => {
     rerender(
       <AppContextWrapper>
         <div>Child</div>
-      </AppContextWrapper>
+      </AppContextWrapper>,
     );
 
     expect(mockSyncCartToBackend).toHaveBeenCalledTimes(1);

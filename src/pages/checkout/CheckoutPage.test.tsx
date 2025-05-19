@@ -24,9 +24,11 @@ const mockHandleBookOrder = jest.fn();
 
 const renderPage = () => {
   render(
-    <MemoryRouter initialEntries={[{ pathname: '/checkout', state: { totalPrice: 1234 } }]}>
+    <MemoryRouter
+      initialEntries={[{ pathname: '/checkout', state: { totalPrice: 1234 } }]}
+    >
       <CheckoutPage />
-    </MemoryRouter>
+    </MemoryRouter>,
   );
 };
 
@@ -65,9 +67,10 @@ describe('CheckoutPage', () => {
     renderPage();
 
     expect(
-      screen.getByText((_, element) =>
-        element?.textContent?.replace(/\s/g, '') === 'Total:₹1234'
-      )
+      screen.getByText(
+        (_, element) =>
+          element?.textContent?.replace(/\s/g, '') === 'Total:₹1234',
+      ),
     ).toBeInTheDocument();
 
     expect(screen.getByPlaceholderText('Street')).toBeInTheDocument();

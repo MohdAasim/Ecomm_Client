@@ -8,7 +8,7 @@ describe('ItemCard component', () => {
     name: 'Test Product',
     price: 999,
     category: 'Electronics',
-    description:"Test description",
+    description: 'Test description',
     image_url: 'https://example.com/image.jpg',
   };
 

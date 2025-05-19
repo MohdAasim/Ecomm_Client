@@ -14,7 +14,11 @@ describe('Pagination component', () => {
 
   it('renders Prev and Next buttons', () => {
     render(
-      <Pagination currentPage={2} totalPages={3} onPageChange={mockOnPageChange} />
+      <Pagination
+        currentPage={2}
+        totalPages={3}
+        onPageChange={mockOnPageChange}
+      />,
     );
 
     expect(screen.getByText('Prev')).toBeInTheDocument();
@@ -23,7 +27,11 @@ describe('Pagination component', () => {
 
   it('disables Prev button on first page', () => {
     render(
-      <Pagination currentPage={1} totalPages={3} onPageChange={mockOnPageChange} />
+      <Pagination
+        currentPage={1}
+        totalPages={3}
+        onPageChange={mockOnPageChange}
+      />,
     );
 
     expect(screen.getByText('Prev')).toBeDisabled();
@@ -32,7 +40,11 @@ describe('Pagination component', () => {
 
   it('disables Next button on last page', () => {
     render(
-      <Pagination currentPage={3} totalPages={3} onPageChange={mockOnPageChange} />
+      <Pagination
+        currentPage={3}
+        totalPages={3}
+        onPageChange={mockOnPageChange}
+      />,
     );
 
     expect(screen.getByText('Next')).toBeDisabled();
@@ -41,7 +53,11 @@ describe('Pagination component', () => {
 
   it('calls onPageChange with correct page number when a number button is clicked', () => {
     render(
-      <Pagination currentPage={2} totalPages={3} onPageChange={mockOnPageChange} />
+      <Pagination
+        currentPage={2}
+        totalPages={3}
+        onPageChange={mockOnPageChange}
+      />,
     );
 
     fireEvent.click(screen.getByText('1'));
@@ -53,7 +69,11 @@ describe('Pagination component', () => {
 
   it('calls onPageChange when Prev and Next are clicked', () => {
     render(
-      <Pagination currentPage={2} totalPages={3} onPageChange={mockOnPageChange} />
+      <Pagination
+        currentPage={2}
+        totalPages={3}
+        onPageChange={mockOnPageChange}
+      />,
     );
 
     fireEvent.click(screen.getByText('Prev'));

@@ -15,7 +15,7 @@ describe('SearchBar component', () => {
         searchTerm=""
         onSearchTermChange={mockOnSearchTermChange}
         onSearch={mockOnSearch}
-      />
+      />,
     );
 
     expect(screen.getByPlaceholderText(/search products/i)).toBeInTheDocument();
@@ -28,7 +28,7 @@ describe('SearchBar component', () => {
         searchTerm=""
         onSearchTermChange={mockOnSearchTermChange}
         onSearch={mockOnSearch}
-      />
+      />,
     );
 
     const input = screen.getByPlaceholderText(/search products/i);
@@ -43,7 +43,7 @@ describe('SearchBar component', () => {
         searchTerm="laptop"
         onSearchTermChange={mockOnSearchTermChange}
         onSearch={mockOnSearch}
-      />
+      />,
     );
 
     const button = screen.getByRole('button', { name: /search/i });

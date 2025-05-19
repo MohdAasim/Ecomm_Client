@@ -21,6 +21,5 @@ describe('PrimaryButton', () => {
     render(<PrimaryButton disabled>Click Me</PrimaryButton>);
     const buttonElement = screen.getByText('Click Me') as HTMLButtonElement;
     expect(buttonElement).toBeDisabled();
-  })
-
-})
+  });
+});

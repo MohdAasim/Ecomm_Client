@@ -64,22 +64,15 @@ describe('Filter component', () => {
   });
 
   it('calls price change handlers with undefined when inputs are cleared', () => {
-    render(
-      <Filter
-        {...mockProps}
-        minPrice={100}
-        maxPrice={500}
-      />
-    );
-  
+    render(<Filter {...mockProps} minPrice={100} maxPrice={500} />);
+
     const minPriceInput = screen.getByPlaceholderText('Min Price');
     const maxPriceInput = screen.getByPlaceholderText('Max Price');
-  
+
     fireEvent.change(minPriceInput, { target: { value: '' } });
     fireEvent.change(maxPriceInput, { target: { value: '' } });
-  
+
     expect(mockProps.onMinPriceChange).toHaveBeenCalledWith(undefined);
     expect(mockProps.onMaxPriceChange).toHaveBeenCalledWith(undefined);
   });
-  
 });

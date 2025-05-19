@@ -18,29 +18,28 @@ jest.mock('sweetalert2', () => ({
   fire: jest.fn(),
 }));
 
-describe("app Component",()=>{
-    it('Should renders app component', async () => {
-        (axiosClient.get as jest.Mock).mockResolvedValue({
-          data: [
-            {
-              id: 1,
-              name: 'Mock Product',
-              price: 50,
-              category: 'fashion',
-              image: 'mock-image.jpg',
-              description: 'A mock product',
-            },
-          ],
-        });
-      
-        render(
-          <MemoryRouter>
-            <App />
-          </MemoryRouter>
-        );
-      
-        // Confirm the app loaded expected content
-        expect(await screen.findByText(/ecomm/i)).toBeInTheDocument();
-      });
-      
-})
+describe('app Component', () => {
+  it('Should renders app component', async () => {
+    (axiosClient.get as jest.Mock).mockResolvedValue({
+      data: [
+        {
+          id: 1,
+          name: 'Mock Product',
+          price: 50,
+          category: 'fashion',
+          image: 'mock-image.jpg',
+          description: 'A mock product',
+        },
+      ],
+    });
+
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>,
+    );
+
+    // Confirm the app loaded expected content
+    expect(await screen.findByText(/ecomm/i)).toBeInTheDocument();
+  });
+});

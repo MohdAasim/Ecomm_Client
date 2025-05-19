@@ -1,14 +1,12 @@
 {
-    "extends": "./tsconfig.app.json",
-    "compilerOptions": {
-      "module": "commonjs",
-      "moduleResolution": "node",
-      "verbatimModuleSyntax": false,
-      "jsx": "react-jsx",
-      "esModuleInterop": true,
-      "allowSyntheticDefaultImports": true
-    },
-    "include": ["src", "jest.setup.ts"]
-  }
-  
-  
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "verbatimModuleSyntax": false,
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src", "jest.setup.ts"]
+}
