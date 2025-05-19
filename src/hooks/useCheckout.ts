@@ -35,9 +35,9 @@ export const useCheckout = () => {
   useEffect(() => {
     const fetchAddresses = async () => {
       try {
-        if(userId && token){
-        const data = await getUserAddresses(userId, token);
-        setAddresses(data);
+        if (userId && token) {
+          const data = await getUserAddresses(userId, token);
+          setAddresses(data);
         }
       } catch (err) {
         console.error('Error fetching addresses', err);
@@ -76,8 +76,8 @@ export const useCheckout = () => {
 
     if (!selectedAddressId && saveAddress) {
       try {
-        if(token&&userId){
-        await saveNewAddress({ ...newAddress, userId }, token);
+        if (token && userId) {
+          await saveNewAddress({ ...newAddress, userId }, token);
         }
       } catch (err) {
         console.error('Error saving address', err);

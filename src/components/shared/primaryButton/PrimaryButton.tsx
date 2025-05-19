@@ -15,7 +15,12 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({
   disabled = false,
 }) => {
   return (
-    <button className={styles.primary} onClick={onClick} type={type} disabled={disabled}>
+    <button
+      className={styles.primary}
+      onClick={onClick}
+      type={type}
+      disabled={disabled}
+    >
       {children}
     </button>
   );

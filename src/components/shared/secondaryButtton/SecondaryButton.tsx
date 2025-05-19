@@ -15,7 +15,12 @@ const SecondaryButton: React.FC<SecondaryButtonProps> = ({
   disabled = false,
 }) => {
   return (
-    <button className={styles.secondary} onClick={onClick} type={type} disabled={disabled}>
+    <button
+      className={styles.secondary}
+      onClick={onClick}
+      type={type}
+      disabled={disabled}
+    >
       {children}
     </button>
   );
