@@ -56,13 +56,6 @@ export default tseslint.config({
 ```
 
 css ka sbka alag alag - Mostly Done
-prettier - Done
-Eslint - Done
-husky - precommits - Done
-alert message - toster
-.env.dev .env.prod
-Error Boundary
-refractor checkout 3 api calls there
 
 //shared card search button
 //component header footer

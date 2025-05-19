@@ -33,9 +33,21 @@ const ProductListing: React.FC = () => {
     useProducts(filters);
 
   const handleSearch = useCallback(() => {
-    setPage(1);
-    setQuery(searchTerm);
-  }, [setPage, setQuery, searchTerm]);
+    let changed = false;
+
+    setQuery((prevQuery) => {
+      if (prevQuery !== searchTerm) {
+        changed = true;
+        return searchTerm;
+      }
+      return prevQuery;
+    });
+
+    setPage((prevPage) => {
+      if (changed && prevPage !== 1) return 1;
+      return prevPage;
+    });
+  }, [searchTerm]);
 
   useDebouncedEffect(
     () => {

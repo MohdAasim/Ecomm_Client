@@ -5,6 +5,7 @@ import ErrorMessage from '../../components/shared/errorMessage/ErrorMessage';
 import ShimmerUi from '../../components/ShimmerUi';
 import { useCart } from '../../context/CartContext';
 import './ProductDesc.css';
+import { toast } from 'react-toastify';
 
 const ProductDesc: React.FC = () => {
   const { id } = useParams();
@@ -18,6 +19,7 @@ const ProductDesc: React.FC = () => {
     // console.log({ ...product, quantity });
     if (product && product.id != null) {
       addToCart({ productId: product.id, quantity, product });
+      toast.success(`${product.name} added to cart!`);
     }
   };
 

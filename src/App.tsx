@@ -1,7 +1,7 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import ProductListing from './pages/productListing/ProductListing';
-import Header from './components/Header';
+import Header from './components/header/Header';
 import NotFound from './pages/notFound/NotFound';
 import ProductDesc from './pages/productDesc/ProductDesc';
 import Aboutus from './pages/aboutus/Aboutus';
@@ -12,6 +12,8 @@ import { CartProvider } from './context/CartContext';
 import AppContextWrapper from './components/AppContextWrapper';
 import CheckoutPage from './pages/checkout/CheckoutPage';
 import OrderSuccess from './pages/orderSuccess/OrderSuccess';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -33,6 +35,7 @@ function App() {
           </AppContextWrapper>
         </CartProvider>
       </AuthProvider>
+      <ToastContainer position="top-right" autoClose={3000} />
     </>
   );
 }

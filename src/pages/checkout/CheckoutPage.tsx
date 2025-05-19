@@ -1,103 +1,27 @@
-import { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import axiosClient from '../../utils/axiosclient';
-import { useAuth } from '../../context/AuthContext';
+import { useLocation } from 'react-router-dom';
+import { useCheckout } from '../../hooks/useCheckout';
 import AddressForm from '../../components/shared/addressForm/AddressForm';
-import { useCart } from '../../context/CartContext';
 import './CheckoutPage.css';
-
-type Address = {
-  id: number;
-  street: string;
-  city: string;
-  state: string;
-  postalCode: string;
-  country: string;
-};
 
 const CheckoutPage = () => {
   const { state } = useLocation();
   const { totalPrice } = state;
-  const { userId, token } = useAuth();
-  const { clearCart } = useCart();
-  const navigate = useNavigate();
 
-  const [addresses, setAddresses] = useState<Address[]>([]);
-  const [selectedAddressId, setSelectedAddressId] = useState<number | null>(
-    null,
-  );
-  const [newAddress, setNewAddress] = useState<Omit<Address, 'id'>>({
-    street: '',
-    city: '',
-    state: '',
-    postalCode: '',
-    country: '',
-  });
-  const [saveAddress, setSaveAddress] = useState(false);
-
-  useEffect(() => {
-    const fetchAddresses = async () => {
-      try {
-        const res = await axiosClient.get<Address[]>(`/addresses/${userId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setAddresses(res.data || []);
-      } catch (err) {
-        console.error('Error fetching addresses', err);
-      }
-    };
-    fetchAddresses();
-  }, [userId, token]);
-
-  const handleBookOrder = async () => {
-    if (!selectedAddressId) {
-      const isNewAddressFilled = Object.values(newAddress).every(
-        (val) => val.trim() !== '',
-      );
-      if (!isNewAddressFilled) {
-        alert('Please select a saved address or fill in the new address form.');
-        return;
-      }
-    }
-
-    const address = selectedAddressId
-      ? addresses.find((a) => a.id === selectedAddressId)
-      : newAddress;
-
-    if (!address) {
-      alert('Please provide an address');
-      return;
-    }
-
-    if (!selectedAddressId && saveAddress) {
-      try {
-        const newAddressData = {
-          ...newAddress,
-          userId,
-        };
-
-        await axiosClient.post('/addresses', newAddressData, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-      } catch (err) {
-        console.error('Error saving address', err);
-        alert('Failed to save address');
-        return;
-      }
-    }
-
-    try {
-      await clearCart();
-      navigate('/order-success');
-    } catch (err) {
-      console.error('Error clearing cart', err);
-      alert('Order placed but failed to clear cart.');
-    }
-  };
+  const {
+    addresses,
+    selectedAddressId,
+    newAddress,
+    saveAddress,
+    setNewAddress,
+    setSaveAddress,
+    setSelectedAddressId,
+    handleBookOrder,
+  } = useCheckout();
 
   return (
     <div className="checkout-container">
       <h2 className="checkout-title">Checkout</h2>
+
       {addresses.length > 0 && (
         <div className="address-section">
           <h3 className="section-title">Select Saved Address:</h3>
