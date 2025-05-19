@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { useCart } from '../context/CartContext';
+import { useAuth } from '../../../context/AuthContext';
+import { useCart } from '../../../context/CartContext';
 
 const AppContextWrapper: React.FC<{ children: React.ReactNode }> = ({
   children,
