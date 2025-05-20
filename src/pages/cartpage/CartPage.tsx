@@ -17,7 +17,6 @@ const CartPage = () => {
 
   const handleCheckout = () => {
     if (!isAuthenticated) {
-      alert('Please sign in to proceed to checkout.');
       navigate('/signin');
       return;
     }
