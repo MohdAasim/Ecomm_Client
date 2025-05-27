@@ -1,4 +1,9 @@
 .not-found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh; /* or 100vh for full viewport */
   text-align: center;
   padding: 4rem;
   color: #444;

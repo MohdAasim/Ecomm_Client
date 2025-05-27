@@ -1,7 +1,6 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import ProductListing from './pages/productListing/ProductListing';
-import Header from './components/header/Header';
 import NotFound from './pages/notFound/NotFound';
 import ProductDesc from './pages/productDesc/ProductDesc';
 import Aboutus from './pages/aboutus/Aboutus';
@@ -14,6 +13,7 @@ import CheckoutPage from './pages/checkout/CheckoutPage';
 import OrderSuccess from './pages/orderSuccess/OrderSuccess';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import MainLayout from './components/shared/MainLayout/MainLayout';
 
 function App() {
   return (
@@ -21,16 +21,43 @@ function App() {
       <AuthProvider>
         <CartProvider>
           <AppContextWrapper>
-            <Header />
             <Routes>
-              <Route path="/" element={<ProductListing />} />
-              <Route path="/desc/:id" element={<ProductDesc />} />
-              <Route path="/about" element={<Aboutus />} />
-              <Route path="/signin" element={<SignIn />} />
-              <Route path="/cart" element={<CartPage />} />
-              <Route path="/checkout" element={<CheckoutPage />} />
-              <Route path="/order-success" element={<OrderSuccess />} />
-              <Route path="*" element={<NotFound />} />
+              <Route element={<MainLayout />}>
+                <Route
+                  path="/"
+                  element={<ProductListing aria-label="Product listing page" />}
+                />
+                <Route
+                  path="/desc/:id"
+                  element={
+                    <ProductDesc aria-label="Product description page" />
+                  }
+                />
+                <Route
+                  path="/about"
+                  element={<Aboutus aria-label="About us page" />}
+                />
+                <Route
+                  path="/signin"
+                  element={<SignIn aria-label="Sign in page" />}
+                />
+                <Route
+                  path="/cart"
+                  element={<CartPage aria-label="Cart page" />}
+                />
+                <Route
+                  path="/checkout"
+                  element={<CheckoutPage aria-label="Checkout page" />}
+                />
+                <Route
+                  path="/order-success"
+                  element={<OrderSuccess aria-label="Order success page" />}
+                />
+              </Route>
+              <Route
+                path="*"
+                element={<NotFound aria-label="404 not found page" />}
+              />
             </Routes>
           </AppContextWrapper>
         </CartProvider>

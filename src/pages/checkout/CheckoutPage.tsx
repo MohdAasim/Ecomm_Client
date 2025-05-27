@@ -1,9 +1,12 @@
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useCheckout } from '../../hooks/useCheckout';
 import AddressForm from '../../components/shared/addressForm/AddressForm';
 import './CheckoutPage.css';
 
-const CheckoutPage = () => {
+const CheckoutPage: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
+  props,
+) => {
   const { state } = useLocation();
   const { totalPrice } = state;
 
@@ -19,7 +22,7 @@ const CheckoutPage = () => {
   } = useCheckout();
 
   return (
-    <div className="checkout-container">
+    <div className="checkout-container" {...props}>
       <h2 className="checkout-title">Checkout</h2>
 
       {addresses.length > 0 && (

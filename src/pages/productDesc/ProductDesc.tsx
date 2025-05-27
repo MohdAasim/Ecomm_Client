@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useProductById } from '../../hooks/useProductById';
 import ErrorMessage from '../../components/shared/errorMessage/ErrorMessage';
-import ShimmerUi from '../../components/ShimmerUi';
 import { useCart } from '../../context/CartContext';
 import './ProductDesc.css';
 import { toast } from 'react-toastify';
@@ -16,7 +15,6 @@ const ProductDesc: React.FC = () => {
   const increment = () => setQuantity((q) => q + 1);
   const decrement = () => setQuantity((q) => (q > 1 ? q - 1 : 1));
   const handleAddToCart = () => {
-    // console.log({ ...product, quantity });
     if (product && product.id != null) {
       addToCart({ productId: product.id, quantity, product });
       toast.success(`${product.name} added to cart!`);
@@ -26,8 +24,16 @@ const ProductDesc: React.FC = () => {
   return (
     <>
       {loading ? (
-        <div className="products-grid">
-          <ShimmerUi />
+        <div
+          className="products-grid"
+          style={{ textAlign: 'center', padding: '2rem' }}
+        >
+          <div className="loading-container">
+            <span
+              className="loading-indicator"
+              aria-label="Loading product details..."
+            />
+          </div>
         </div>
       ) : error || !product ? (
         <ErrorMessage message="Failed to load products" />

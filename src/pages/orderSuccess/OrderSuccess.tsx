@@ -2,7 +2,9 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './OrderSucsess.css';
 
-const OrderSuccess = () => {
+const OrderSuccess: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
+  props,
+) => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,7 +16,7 @@ const OrderSuccess = () => {
   }, [navigate]);
 
   return (
-    <div className="order-success-container">
+    <div className="order-success-container" {...props}>
       <div className="order-success-icon">🎉</div>
       <h1 className="order-success-title">
         Hurray! Your order has been booked.
