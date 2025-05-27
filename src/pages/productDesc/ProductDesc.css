@@ -54,6 +54,30 @@
   background-color: #0056b3;
 }
 
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh; /* Adjust as needed for your layout */
+  width: 100%;
+}
+
+.loading-indicator {
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+  border: 5px solid #eee;
+  border-top: 5px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @media (max-width: 768px) {
   .product-card {
     flex-direction: column;

@@ -4,7 +4,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useCart } from '../../context/CartContext';
 import './Header.css';
 
-const Header: React.FC = () => {
+const Header: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isAuthenticated, logout } = useAuth();
   const location = useLocation();
@@ -26,7 +26,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="header">
+    <header className="header" {...props}>
       <div className="header-container">
         <div className="logo">
           <Link to="/">Ecomm</Link>
